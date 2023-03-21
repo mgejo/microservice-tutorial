@@ -65,8 +65,8 @@ def createJWT(username, secret, authz):
     return result
 
 
-@server.route("/validate", method=["POST"])
-def validate();
+@server.route("/validate", methods=["POST"])
+def validate():
     encoded_jwt = request.headers["Authorization"]
     if not encoded_jwt:
         return missing_credentials_error

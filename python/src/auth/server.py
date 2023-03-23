@@ -67,13 +67,13 @@ def createJWT(username, secret, authz):
 
 @server.route("/validate", methods=["POST"])
 def validate():
-    encoded_jwt = request.headers["Authorization"]
-    if not encoded_jwt:
-        return missing_credentials_error
-
-    encoded_jwt = encoded_jwt.split(" ")[1]
-
     try:
+        encoded_jwt = request.headers["Authorization"]
+        if not encoded_jwt:
+            return missing_credentials_error
+
+        encoded_jwt = encoded_jwt.split(" ")[1]
+
         decoded_jwt = jwt.decode(encoded_jwt, os.environ.get("JWT_SECRET"), algorithm="HS256")
     except:
         return unauthorized_error()
